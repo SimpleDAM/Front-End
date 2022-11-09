@@ -1,0 +1,181 @@
+<!--
+This software is released under the BSD-3-Clause License
+
+Copyright 2022 Daydream Interactive Limited
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Simple DAM - Add Asset</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,600,800" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/sticky-footer.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+
+<!-- Begin navbar and notices -->
+<nav class="navbar navbar-default navbar-static-top">
+<div class="container-fluid">
+  <div class="navbar-header">
+	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	  <span class="sr-only">Toggle navigation</span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	</button>
+	<span class="navbar-brand"><a href="/view"><img class="img-responsive" alt="SimpleDAM logo" src="/images/logo.png" /></a></span>
+  </div>
+  <div id="navbar" class="navbar-collapse collapse">
+  	
+	
+	<div class="logged-in" style="display:none;">
+	
+	<ul class="nav navbar-nav">
+	<li><a href="/view" title="View assets">View Assets</a></li>
+	<li><a href="/docs" title="View documentation">Docs</a></li>
+	</ul>
+
+	<ul class="nav navbar-nav navbar-right">
+		
+		<li class="dropdown isadmin" style="display:none;">
+		<a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		Admin
+		<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+		<li><a href="/admin/add">Add Asset</a></li>
+		<li><a href="/admin/users">Manage Users</a></li>
+		<li><a href="/admin/events">View Event Audit</a></li>
+		</ul>
+		</li>
+		
+		<li><a title="Your account" href="/account">Account</a></li>
+        <li><a class="logout" title="Log out of the system" href="/api/user/logout/">Log Out</a></li>
+	</ul>
+
+	</div>
+	
+  </div><!--/.nav-collapse -->
+</div><!--/.container-fluid -->
+</nav>
+
+<noscript>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="alert alert-danger ">
+					This application requires JavaScript to function properly.
+				</div>
+			</div>
+		</div>
+	</div>
+</noscript>
+
+<div class="container maintenance" style="display:none;">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-warning ">
+			<strong>Maintenance Mode is Active.</strong> IP addresses not on the whitelist will instead see <a href="/maintenance">this page</a>.
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end navbar and notices -->
+  
+<div class="container main-container" style="display:none;">
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="page-header">
+		<h1 id="type">Add Asset</h1>		
+		</div>		
+	</div>
+</div>
+
+<div id="notice-error" class="row errors" style="display:none;">
+	<div class="col-md-12">
+		<div class="alert alert-danger">
+		<div class="error-msg"></div>
+		</div>
+	</div>
+</div>
+
+<div id="notice-success" class="row success" style="display:none;">
+	<div class="col-md-12">
+		<div class="alert alert-success">
+		<div class="success-msg"></div>
+		</div>
+	</div>
+</div>
+
+<div class="row asset-container" style="display:none;">
+	  
+	  <div class="col-lg-12">
+	
+		<form id="assetAddForm" action="/api/asset/add" method="post" enctype="multipart/form-data" name="assetAddForm" target="_blank">
+	
+				<strong>Use an uploaded file</strong> (optional)<br>
+				<p>If no file is provided, a metadata-only asset will be created.</p>
+				<input class="form-control" name="file" id="add-file" type="file">
+				<br>
+	
+				<strong>&hellip;Or use a file from a URL</strong> (optional)<br>
+				<p>HTTP, HTTPS and FTP are supported.</p>
+				<input class="form-control" id="add-url" name="url" type="text" value="">
+				<br>
+				
+				<strong>Metadata</strong> (JSON, optional)<br>
+				<p>An empty placeholder asset can be created without any metadata.</p>
+				<textarea class="form-control"  name="metadata" cols="40" rows="16" id="add-metadata"></textarea>
+				<br>
+	
+			<input class="form-control sessiontoken" name="sessiontoken" type="hidden" value="">
+			<input class="btn btn-default btn-add-reset" name="Reset" type="reset" value="Reset">
+			<input class="btn btn-primary btn-add-submit" name="submit" type="submit" value="Add Asset">
+	
+		  </form>
+		
+		<br><br>
+		  
+      </div>
+	  
+    </div>
+	
+</div>
+
+<footer class="footer"></footer>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- Migrate script so older functions such as 'live' continue to work -->
+<script src="/js/jquery-migrate-3.4.0.min.js"></script>
+<!-- Cookies for storing DOM states, visibility etc. -->
+<script src="/js/jquery.cookie.js"></script>
+<!-- Miscellaneous JS functions -->
+<script src="/js/global.js"></script>
+<!-- AJAX forms -->
+<script src="/js/jquery.form.js"></script>
+<!-- add script -->
+<script src="/js/add.js"></script>
+
+</body>
+</html>

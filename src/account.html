@@ -1,0 +1,398 @@
+<!--
+This software is released under the BSD-3-Clause License
+
+Copyright 2022 Daydream Interactive Limited
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Simple DAM - Account</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,600,800" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/sticky-footer.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon" />	
+  </head>
+  <body>
+  
+<!-- Begin navbar and notices -->
+<nav class="navbar navbar-default navbar-static-top">
+<div class="container-fluid">
+  <div class="navbar-header">
+	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	  <span class="sr-only">Toggle navigation</span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	</button>
+	<span class="navbar-brand"><a href="/view"><img class="img-responsive" alt="SimpleDAM logo" src="/images/logo.png" /></a></span>
+  </div>
+  <div id="navbar" class="navbar-collapse collapse">
+  	
+	
+	<div class="logged-in" style="display:none;">
+	
+	<ul class="nav navbar-nav">
+	<li><a href="/view" title="View assets">View Assets</a></li>
+	<li><a href="/docs" title="View documentation">Docs</a></li>
+	</ul>
+
+	<ul class="nav navbar-nav navbar-right">
+	
+		<li class="dropdown isadmin" style="display:none;">
+		<a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		Admin
+		<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+		<li><a href="/admin/add">Add Asset</a></li>
+		<li><a href="/admin/users">Manage Users</a></li>
+		<li><a href="/admin/events">View Event Audit</a></li>
+		</ul>
+		</li>
+		
+		<li><a title="Your account" href="/account">Account</a></li>
+        <li><a class="logout" title="Log out of the system" href="/api/user/logout/">Log Out</a></li>
+	</ul>
+
+	</div>
+	
+  </div><!--/.nav-collapse -->
+</div><!--/.container-fluid -->
+</nav>
+
+<noscript>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="alert alert-danger ">
+					This application requires JavaScript to function properly.
+				</div>
+			</div>
+		</div>
+	</div>
+</noscript>
+
+<div class="container maintenance" style="display:none;">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-warning ">
+			<strong>Maintenance Mode is Active.</strong> IP addresses not on the whitelist will instead see <a href="/maintenance">this page</a>.
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container test-data" style="display:none;">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-danger">
+			<strong>Important!</strong> All records are currently based on sample data. This notice will be removed when live data is being used.
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end navbar and notices -->
+
+<div class="container main-container" style="display:none;">
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="page-header">
+		<h1 id="type">Account</h1>
+		<span class="">Last Login: <span class="lastlogindate"></span></span>
+		</div>		
+	</div>
+</div>
+
+<div id="notice-error" class="row errors" style="display:none;">
+	<div class="col-md-12">
+		<div class="alert alert-danger">
+		<div class="error-msg"></div>
+		</div>
+	</div>
+</div>
+
+
+<div id="notice-success" class="row user-updated" style="display:none;">
+	<div class="col-md-12">
+		<div class="alert alert-success">
+		<div class="success-msg"></div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-6">
+
+	<form id="accountForm" name="accountForm" action="/api/user/update/" method="post" enctype="multipart/form-data">
+
+	<table width="100%" class="accountTable" border="0" cellpadding="3" cellspacing="3">
+	  <tr>
+		<th width="200" scope="row"><div align="left">First Name </div></th>
+		<td><div align="left">
+		  <input name="firstname" type="text" class="form-control" id="firstname" value="" size="25" maxlength="50" style="width:250px;">
+		</div></td>
+	  </tr>
+	  <tr>
+		<th scope="row"><div align="left">Last Name </div></th>
+		<td><div align="left">
+		  <input name="lastname" type="text" class="form-control" id="lastname" value="" size="25" maxlength="50" style="width:250px;">
+		</div></td>
+	  </tr>
+	  <tr>
+		<th scope="row"><div align="left">Email</div></th>
+		<td><div align="left">
+		  <input class="form-control" name="email" type="text" id="email" value="" style="width:250px;">
+		</div></td>
+	  </tr>
+	  
+	  <tr class="isadmin" style="display:none;">
+        <th scope="row"><div align="left">User Role</div></th>
+	    <td><div align="left">
+	      <select class="form-control" name="userroleid" id="userroleid" style="width:250px;">
+	        <option value="">Please Select</option>
+	        </select>
+	      </div></td>
+	  </tr>
+	  
+	  <tr>
+		<th scope="row"><div align="left">Password<br><span class="description">(leave blank to keep existing)</span></div></th>
+		<td><div align="left">
+		  <input name="password" type="password" class="form-control" id="password" size="25" maxlength="25" style="width:250px;">
+		</div></td>
+	  </tr>
+	  <tr>
+		<th scope="row"><div align="left">Confirm Password<br><span class="description">(leave blank to keep existing)</span></div></th>
+		<td><div align="left">
+		  <input name="password2" type="password" class="form-control" id="password2" size="25" maxlength="25" style="width:250px;">
+		</div></td>
+	  </tr>
+	  <tr>
+		<th scope="row"><div align="left"><br>
+		  <input name="id" type="hidden" id="id" value="">
+		  <input class="sessiontoken" name="sessiontoken" type="hidden" id="sessiontoken" value="">
+		  <input name="submitAccount" type="submit" class="btn btn-primary" id="submitAccount" value="Submit">
+		</div></th>
+		<td></td>
+	  </tr>
+	</table>
+	  
+	</form>
+	
+	</div>
+</div>
+
+<br>
+
+<div class="row">
+	<div class="col-lg-6">
+	
+	<h2>API Access</h2>
+	<p>You can access the API using the following details.  A new API session token is generated every time you login. Session tokens expire after 12 hours of inactivity.</p>
+	<br>
+	
+	<div class="input-group">
+	  <span class="input-group-addon" id="basic-addon1"><strong>API Endpoint</strong></span>
+	  <input type="text" readonly="readonly" class="form-control api-url" aria-describedby="basic-addon1">
+	  <span class="input-group-btn">
+	   <button class="btn btn-primary copy-api-url" type="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="Copied!">Copy</button>
+	   </span>
+	</div>
+	
+	<br>
+	
+	<div class="input-group">
+		<span class="input-group-addon" id="basic-addon2"><strong>Session Token</strong></span>
+		<input readonly="readonly" class="sessiontoken form-control" size="25" maxlength="25">
+		<span class="input-group-btn">
+        <button class="btn btn-primary copy-session-token" type="button" data-container="body" data-toggle="popover" data-placement="right" data-trigger="focus" data-content="Copied!">Copy</button>
+      </span>
+	</div>
+	
+	<br><br>
+
+	</div>
+</div>
+
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- Migrate script so older functions such as 'live' continue to work -->
+<script src="/js/jquery-migrate-3.4.0.min.js"></script>
+<!-- Cookies for storing DOM states, visibility etc. -->
+<script src="/js/jquery.cookie.js"></script>
+<!-- Miscellaneous JS functions -->
+<script src="/js/global.js"></script>
+<!-- AJAX forms -->
+<script src="/js/jquery.form.js"></script>
+<script>
+
+var userid = null;
+var sessiontoken = localStorage.sessiontoken;
+
+// Check session token on page load and redirect to login if a valid one isn't found
+$(document).ready(function(){
+	checkSessionToken().then(
+		function(data){
+			if (data.error){
+				window.location.href = "/";
+			} else {
+				init(data);
+			}
+		}
+	).fail(function(){
+		window.location.href = "/";
+	});
+});
+
+function init(userdata){
+	
+	$(".logged-in, .main-container").show();
+	
+	// Append logout link with sessiontoken
+	$(".logout").attr("href","/api/user/logout/?sessiontoken="+userdata.data.sessiontoken);
+	
+	userid = userdata.data.userid;
+	$("#id").val(userid);
+	
+	if (userdata.data.userroleid == 2){
+		$(".isadmin").show();
+		$("#id").val(userid);
+		if (getParameterByName("userid")){
+			userid = getParameterByName("userid");
+			$("#id").val(userid);
+		}
+	}
+	
+	// API information
+	$(".sessiontoken").val(sessiontoken);
+	$(".api-url").val(window.location.protocol + "//" + window.location.hostname + "/api");
+	$(document).on("click",".sessiontoken, .api-url",function () {
+		$(this).select();
+	});
+	
+	$(document).on("click",".copy-api-url",function(){
+		var text = $(".api-url").val();
+		navigator.clipboard.writeText(text).then(function() {
+			$(".copy-api-url").popover('show');
+		}, function(err) {
+			showError('Could not copy text: '+ err, true);
+		});
+	});
+	
+	$(document).on("click",".copy-session-token",function(){
+		var text = $(".sessiontoken").val();
+		navigator.clipboard.writeText(text).then(function() {
+			$(".copy-session-token").popover('show');
+		}, function(err) {
+			showError('Could not copy session token: '+ err,true);
+		});
+	});
+
+	$("#accountForm").on("submit",function (event) {
+	
+		$("#notice-error").hide();
+		$("#notice-success").hide();
+		
+		var formData = $(this).serializeArray();
+		
+		$.ajax({
+			type: "POST",
+			url: $(this).prop("action"),
+			data: formData,
+			dataType: "json",
+			encode: true,
+		}).done(function (data) {
+			if (data.error){
+				showError(data.description,true);
+			} else {
+				showSuccess("The account was successfully updated");
+			}
+		}).fail(function( jqxhr, textStatus, error ) {
+			var err = error;
+			showError(err,true);
+		});
+		
+		event.preventDefault();
+	});
+	
+	$(function(){
+      $(".footer").load("/html/footer.html"); 
+    });
+		
+	// Get user details from API
+	if (userdata.data.userroleid == 2){
+		getUserRoles();
+	} else {
+		getAccount();
+	}
+}
+
+function getAccount(){	
+	$.getJSON("/api/user/get/",{sessiontoken:sessiontoken,id:userid})
+	.done(function(json) {
+		if (json.error){
+			showError(json.description,true);
+		} else {
+			var data = json.data;
+			$("#firstname").val(data.firstname);
+			$("#lastname").val(data.lastname);
+			$("#email").val(data.email);
+			$("#userroleid").val(data.userroleid);
+			$(".lastlogindate").html((data.lastlogindate) ? data.lastlogindate : "Never");
+		}
+	})
+	.fail(function( jqxhr, textStatus, error ) {
+		var err = textStatus + ", " + error;
+		showError("Your account could not be retrieved at this time. Please try again later.",true);
+	}); // end getJSON
+}
+
+
+function getUserRoles(){
+	$.getJSON("/api/userrole/list/",{sessiontoken:sessiontoken,start:0, limit:5, sort:"userroleid", dir:"asc"})
+	.done(function(json) {
+		if (json.error){
+			showError(json.description,true);
+		} else {		
+			var roles = json.data.userroles;
+			// Build the HTML and add to the table
+			for(i in roles){	
+				$("#userroleid").append('<option value="'+roles[i].userroleid+'">'+roles[i].userrolename+'</option>');
+				$("#r").append('<option value="'+roles[i].userroleid+'">'+roles[i].userrolename+'</option>');
+			}
+			getAccount();
+		}
+	})
+	.fail(function( jqxhr, textStatus, error ) {
+		var err = textStatus + ", " + error;
+		showError(err,true);
+	}); // end getJSON
+}
+
+</script>
+
+<footer class="footer"></footer>
+	
+</body>
+</html>

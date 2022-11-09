@@ -1,0 +1,615 @@
+/*
+This software is released under the BSD-3-Clause License
+
+Copyright 2022 Daydream Interactive Limited
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+body {
+	font-family:"Open Sans";
+	font-size:16px;
+}
+
+h1, h2, h3 {
+	font-weight:200!important;
+}
+
+table {
+	font-size:14px!important;
+}
+
+.navbar-static-top {
+    min-height: 80px;
+}
+
+.footer .text-muted {
+	font-size:0.9em;
+}
+
+.navbar-nav > li > a {padding-top:30px !important; padding-bottom:30px !important;}
+
+.itmYes {
+	color:#00CC00;
+}
+
+.itmNo {
+	color:#CC0000;
+}
+
+.uploaded {
+	color:#669900;
+	font-weight:600;
+}
+
+.downloaded {
+	color:#0099FF;
+	font-weight:600;
+}
+
+.required {
+  color:red;
+  font-weight:bold;
+}
+
+.black {
+	color:#000!important;
+}
+
+.toggleSS:active, .toggleSS:focus {
+	text-decoration:none;
+}
+
+.tooltip-inner {
+    white-space:pre-wrap;
+}
+
+.btn.disabled {
+	background-color:#999999!important;
+	border-color:#666666!important;
+}
+
+.help-block {
+	display: none;
+}
+.form-group.has-error .help-block {
+	display: block;
+}
+
+.filter-wrapper {
+	margin-bottom:75px;
+}
+
+/* Add other glyphicon colours and sizes */
+.glyphicon-flash {color:#009900;}
+.gi-sm{font-size: 1em;}
+.gi-md{font-size: 1.5em;}
+.gi-lg{font-size: 2em;}
+.gi-xl{font-size: 2.5em;}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.description {
+	font-size:11px;
+	font-weight:normal!important;
+	color:#666666;
+}
+
+.thumbnail {
+	height: 230px;
+    min-height: 120px;
+	overflow: hidden;
+	text-align:center;
+	max-width:300px;
+	min-width:150px;
+}
+.thumbnail a {
+    display: inline-block;
+    max-height: 125px;
+    xwidth: 150px;
+	xheight: 215px;
+}
+
+.thumbnail a img {
+	max-height:100px;
+	height:100px;
+	object-fit: cover;
+	margin-top:2px;
+	border-radius:3px;
+}
+
+.thumbnail .caption {
+	height:75px!important;
+	padding:0px;
+}
+
+.thumbnail .caption span {
+	xmargin-bottom:10px;
+}
+
+.thumbnail:hover {
+	border-color:#A7A7A7;
+	text-decoration:none;
+}
+
+.thumbnail-selected {
+	border-color:#55ACEE;
+}
+
+.pagination > .active > a {
+	background-color: #337ab7!important;
+	border-color: #337ab7!important;
+	color:#FFFFFF!important;	
+}
+
+.listmode {
+	width:100%;
+}
+.listmode .thumbnail {
+	height: 84px;
+	min-height: 32px;
+	overflow: hidden;
+	text-align: center;
+	max-width: 100%;
+	min-width: 100%;
+}
+.listmode .thumbnail a {
+	width:120px;
+	max-width:120px;
+	min-width:120px;
+	float:left;
+}
+.listmode .thumbnail a img {
+  max-height: 70px;
+  margin-top: 2px;
+  border-radius: 3px;
+  margin-right:auto;
+  margin-left:3px;
+  max-width: 100px;
+  margin-bottom:5px;
+}
+
+.listmode .thumbnail .caption {
+	text-align: left;
+	font-size:20px;
+	font-weight:200;
+	padding:0px;
+	border-left:1px solid #DDD;
+	margin-left:2px;
+	padding-left:10px;
+}
+
+.listmode .thumbnail .caption span {
+	padding:0px;
+	margin:0px;
+	margin-top: 5px;
+}
+
+.listmode .thumbnail .btn-group {
+	display:none!important;
+}
+
+.list-filename {
+	font-size:0.85em;
+	color:#337AB7;
+	font-weight:400;
+}
+
+.ext-icon {
+	max-height:64px!important;
+	padding-top:5px;
+	padding-right:5px;
+}
+
+.assetThumbnail {
+	text-decoration:none!important;
+}
+
+.popover{
+	font-family: "Open Sans";
+    max-width: 500px; /* Max Width of the popover (depending on the container!) */
+	font-size:0.85em;
+}
+.popover-title {
+	word-wrap:break-word;	
+	font-weight:bold!important;
+	font-size:1em;
+}
+
+.popover-text {
+	word-wrap:break-word!important;
+	overflow-wrap: break-word!important;
+	text-align:left!important;
+	margin-top:10px;
+	font-size:0.975em;
+}
+
+.popover-description {
+	max-width:370px!important;
+	width:370px!important;
+}
+
+.popoverPreview {
+	text-align:center;
+	margin-bottom:5px;
+	max-width:360px!important;
+	width:360px!important;
+	word-wrap:break-word!important;
+	overflow-wrap: break-word!important;
+}
+
+.popoverPreview img {
+	max-height:350px;
+	max-width:350px;
+	margin-top:8px;
+	margin-left:auto!important;
+	margin-right:auto!important;
+	border-radius:5px;
+}
+
+.caption {
+	font-size:0.8em;
+	text-align:center;
+	word-wrap:break-word;
+}
+
+.source_pre {
+	background-color:#CC0000;
+	font-weight:200;
+}
+.source_post {
+	background-color:#339900;
+	font-weight:200;
+}
+
+/* Inline DHTML-style forms (popups) */
+.popupform {
+    background: white none repeat scroll 0 0;
+    border: 1px solid #bbb;
+    box-shadow: 5px 5px 5px #888;
+    padding: 10px;
+    position: absolute;
+    xwidth: 600px;
+}
+
+/* Asset Popup Modal (bootstrap version) */
+.assetModalBody {
+	xheight:600px;
+}
+
+.assetPreview {
+	width:350px;
+	height:350px;
+	background-color:#EEEEEE;
+	text-align:center;
+	vertical-align:middle;
+	xmargin-right:10px;
+	overflow:hidden;
+	xxbackground-image:url(/images/preview-loading.gif);
+	xxbackground-repeat:no-repeat;
+	xxbackground-position:center 50px;
+}
+
+.assetPreview img {
+	max-height:350px;
+	max-width:350px;
+}
+
+.assetZoomHint {
+	font-size:0.8em;
+	text-align:center;
+	color:#999999;
+	max-width: 350px;
+}
+
+.assetDetails {
+	height:550px;
+	overflow-y:auto;
+	padding-right:5px;
+	margin-bottom:10px;
+}
+
+.assetDetails pre.json {
+	white-space: pre-wrap;       /* css-3 */
+	white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+#audio-player {
+	margin-top: 150px;
+}
+
+#video-player {
+	padding-top:0px;
+	margin-top: -33px;
+}
+
+.json-bad {
+	border-color:rgb(206, 65, 101)!important;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(206, 65, 101,.6)!important;
+}
+
+pre, #update-metadata {
+	font-family:Consolas,"Courier New", Courier, monospace;
+	font-size:14px;
+	color:#333333;
+	white-space: pre-wrap;       /* css-3 */
+	white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */	
+}
+
+.assetDetailsTable, .usagesTable {
+	font-size:0.8em;
+}
+
+.auditTable {
+	font-size:0.9em;
+}
+
+.auditTable tr td {
+	padding:5px;
+}
+
+.accountTable tr td {
+	padding:5px;	
+}
+
+.assetDetailsTable tbody tr td {
+	word-wrap:break-word!important;
+}
+
+.assetDetails h3 {
+	word-wrap:break-word;
+	margin-top:0px;
+}
+/* Remove this to show the data source after the asset title in the preview pop-up */
+.dataSource {
+	display:none;
+}
+
+.prePostSame {
+	font-weight:bold;
+}
+
+
+.expired {
+	color:#F00000;
+	font-weight:bold;
+}
+.master {
+	color:#339900;	
+}
+
+.active {
+	xfont-weight:bold;
+	xcolor:#CCC!important;
+}
+
+.noFileNotice {
+	color:#CC0000;
+	margin-top:5px;
+	font-size:0.9em;
+	margin-bottom:0px;
+	padding-bottom:0px;
+}
+/* Date shown under spreadsheet activity/history section on clean-up page */
+.ssEventDate {
+	font-weight:600;
+	color:#000;
+	padding-right:5px;
+}
+
+/* API Docs*/
+.docs-entity {
+	font-weight:bold!important;	
+}
+.docs-param-call {
+	font-weight:400!important;	
+	color:#55acee;
+	margin-bottom:20px;
+}
+
+.docs-request {
+	font-weight:bold!important;
+	color:#339900;
+}
+
+.docs-response {
+	font-weight:bold!important;
+	color:#339900;
+}
+
+.docs-param-panel {
+	cursor: pointer;
+    cursor: hand;
+}
+
+.docs-param-name {
+	font-weight:bold;
+}
+
+.docs-param-desc {
+	font-size:0.9em;
+	color:#666666;
+}
+
+.docs-param-type {
+	font-family:"Courier New", Courier, monospace;
+	color:#3333CC;
+}
+
+.docs-param-required {
+	font-style:italic;
+	color:#CC0000;
+	font-size:0.9em;
+}
+
+.docs-param-optional {
+	font-style:italic;
+	color:#999999;
+	font-size:0.9em;
+}
+
+.nested-1 {
+	margin-left:20px;
+}
+
+.docs-param-name.nested-1::before {
+  content: "\27A5 ";
+}
+
+.nested-2 {
+	margin-left:40px;
+}
+
+.docs-param-name.nested-2::before {
+  content: "\27A5 ";
+}
+
+.nested-3 {
+	margin-left:60px;
+}
+
+.docs-param-name.nested-3::before {
+  content: "\27A5 ";
+}
+
+.nested-4 {
+	margin-left:80px;
+}
+
+.docs-param-name.nested-4::before {
+  content: "\27A5 ";
+}
+
+.admin-docs-json, .sandbox-response {
+	font-family: Consolas,"Courier New", Courier, monospace;
+}
+
+.admin-docs-json-tree {
+	height:610px;
+	max-height:610px;
+	overflow-y: auto;
+	border:1px solid #CCCCCC;
+	padding:10px;	
+}
+
+.admin-docs-preview {
+	height:630px;
+	max-height:630px;
+	overflow-y: auto;
+	border:1px solid #CCCCCC;
+	padding:10px;
+}
+
+.linedwrap {
+	border: 1px solid #c0c0c0;
+	padding: 3px;
+}
+
+.linedtextarea {
+	padding: 0px;
+	margin: 0px;
+}
+
+.linedtextarea textarea, .linedwrap .codelines .lineno {
+	font-family: Consolas,"Courier New", Courier, monospace;
+	line-height: 15px !important;
+}
+
+.linedtextarea textarea {
+	padding-right:0.3em;
+	padding-top:0.3em;
+	border: 0;
+	width:1072px!important;
+	height:600px;
+}
+
+.linedwrap .lines {
+	margin-top: 0px;
+	width: 50px;
+	float: left;
+	overflow: hidden;
+	border-right: 1px solid #c0c0c0;
+	margin-right: 10px;
+	height:600px;
+}
+
+.linedwrap .codelines {
+	padding-top: 5px;
+}
+
+.linedwrap .codelines .lineno {
+	color:#AAAAAA;
+	padding-right: 0.5em;
+	padding-top: 0.0em;
+	text-align: right;
+	white-space: nowrap;
+}
+
+.linedwrap .codelines .lineselect {
+	color: red;
+}
+
+.modal-add-docs {
+	width:700px;
+}
+
+.toc {
+	list-style:none;
+	padding-left:0px;
+}
+
+.toc li a {
+	padding:5px;
+	padding-left:10px;
+	display:block;
+	font-weight:bold;
+	background-color:#F5F5F5;
+}
+
+.toc li ul li a {
+	padding:5px;
+	display:block;
+	font-weight:normal;
+	background-color:#FFF;
+}
+
+.toc li ul {
+	list-style:none;
+	padding-left:20px;
+}
+
+#request_table td, #response_table td {
+	padding:5px;
+}

@@ -1,0 +1,357 @@
+<!--
+This software is released under the BSD-3-Clause License
+
+Copyright 2022 Daydream Interactive Limited
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Simple DAM - View Assets</title>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,600,800" rel="stylesheet">
+	<!-- Bootstrap -->
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/css/sticky-footer.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon" />	
+  </head>
+  <body>
+  
+<!-- Begin navbar and notices -->
+<nav class="navbar navbar-default navbar-static-top">
+<div class="container-fluid">
+  <div class="navbar-header">
+	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	  <span class="sr-only">Toggle navigation</span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	</button>
+	<span class="navbar-brand"><a href="/view"><img class="img-responsive" alt="SimpleDAM logo" src="/images/logo.png" /></a></span>
+  </div>
+  <div id="navbar" class="navbar-collapse collapse">
+  	
+	
+	<div class="logged-in" style="display:none;">
+	
+	<ul class="nav navbar-nav">
+	<li><a href="/view" title="View assets">View Assets</a></li>
+	<li><a href="/docs" title="View documentation">Docs</a></li>
+	</ul>
+
+	<ul class="nav navbar-nav navbar-right">
+		
+		<li class="dropdown isadmin" style="display:none;">
+		<a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		Admin
+		<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+		<li><a href="/admin/add">Add Asset</a></li>
+		<li><a href="/admin/users">Manage Users</a></li>
+		<li><a href="/admin/events">View Event Audit</a></li>
+		</ul>
+		</li>
+		
+		<li><a title="Your account" href="/account">Account</a></li>
+        <li><a class="logout" title="Log out of the system" href="/api/user/logout/">Log Out</a></li>
+	</ul>
+
+	</div>
+	
+  </div><!--/.nav-collapse -->
+</div><!--/.container-fluid -->
+</nav>
+
+<noscript>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="alert alert-danger ">
+					This application requires JavaScript to function properly.
+				</div>
+			</div>
+		</div>
+	</div>
+</noscript>
+
+<div class="container maintenance" style="display:none;">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-warning ">
+			<strong>Maintenance Mode is Active.</strong> IP addresses not on the whitelist will instead see <a href="/maintenance">this page</a>.
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="container test-data" style="display:none;">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="alert alert-danger">
+			<strong>Important!</strong> All records are currently based on sample data. This notice will be removed when live data is being used.
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end navbar and notices -->
+
+<div class="container main-container" style="display:none;">
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="page-header">
+		<h1 id="type">View Assets</h1>
+		</div>		
+	</div>
+</div>
+
+
+<div id="notice-error" class="row errors" style="display:none;">
+	<div class="col-md-12">
+		<div class="alert alert-danger">
+		<div class="error-msg"></div>
+		</div>
+	</div>
+</div>
+
+
+<!-- main block -->
+<div class="filter-wrapper row">
+	<div class="col-lg-12">
+
+	 <form class="form-horizontal" id="filter_assets_form" name="filter_assets_form" method="get" action="/view"> 
+		 <div class="input-group input-group-lg">
+		  <span class="input-group-addon" id="basic-addon1">Search</span>
+		  <input class="form-control" name="q" type="text" id="q" value="" placeholder="multiple terms are joined using AND (i.e. more words yield fewer results)" aria-describedby="basic-addon1" title="Search supports filename, file type, asset ID, description, extension, username, creation date, and all metadata fields">
+		  <span class="input-group-btn">
+		   <button type="submit" class="btn btn-primary" aria-label="Left Align">
+			  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		  </button>
+		   <input name="reset" type="submit" class="btn btn-default" id="filterReset" value="Reset" />
+		   </span>
+		</div>
+	</form>
+	
+	</div>
+</div>
+<!--
+<br><br><br>
+-->
+<div class="row">
+	<div class="col-lg-12">
+
+	<a name="results"></a>
+	<h2><span class="numrecords">--</span> assets listed</h2>
+	
+	<!-- begin pagination controls -->
+	<div class="perPageSelect">Page <span class="current-page">--</span> of <span class="max-pages">--</span> (showing <select name="per_page_select" class="form-control" id="per_page_select" style="width:100px; display:inline-block;">
+		<option value="10">10</option>
+		<option value="20">20</option>
+		<option value="50">50</option>
+		<option value="75">75</option>
+		<option value="100">100</option>
+		<option value="250">250</option>
+		<option value="500">500</option>
+	</select> per page)
+	</div><br>
+	
+	</div>
+	
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right" style="display: inline-block;padding-left: 0;margin: 20px 0;">
+		<div class="btn-group pull-right">
+		<a class="btn btn-default btn-grid active" title="Grid View"><i class="glyphicon glyphicon-th"></i></a>
+		<a class="btn btn-default btn-list" title="List View"><i class="glyphicon glyphicon-th-list"></i></a>
+		<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Sort<span class="caret"></span>
+		  </a>
+		  <ul class="dropdown-menu">
+			<li><a href="#" class="sort" data-sortby="assetid" data-dir="desc">Newest</a></li>
+			<li><a href="#" class="sort" data-sortby="assetid" data-dir="asc">Oldest</a></li>
+			<li><a href="#" class="sort" data-sortby="datemodified" data-dir="desc">Modified (desc)</a></li>
+			<li><a href="#" class="sort" data-sortby="datemodified" data-dir="asc">Modified (asc)</a></li>
+			<!--
+			<li><a href="#" class="sort" data-sortby="filename" data-dir="asc">Filename A-Z</a></li>
+			<li><a href="#" class="sort" data-sortby="filename" data-dir="desc">Filename Z-A</a></li>
+			-->
+		  </ul>
+		</div>
+	</div>
+	
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+		<nav aria-label="Page navigation">
+		<ul class="pagination">
+		</ul>
+		</nav>
+	</div>
+	
+	<!-- end pagination controls -->
+	<div class="clear"></div>
+
+</div>
+<!-- end main block -->
+
+<!-- begin gallery view -->
+<div class="assetsWrapper row"></div>
+<!-- end gallery view -->
+
+<!-- begin bottom pagination view -->
+<div class="row">
+	<div class="col-lg-12">
+	<nav aria-label="Page navigation">
+	<ul class="pagination">
+	</ul>
+	</nav>
+	</div>
+</div>
+<!-- end bottom pagination view -->
+
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- Migrate script so older functions such as 'live' continue to work (jquery-migrate-1.2.1.js) -->
+<script src="/js/jquery-migrate-3.4.0.min.js"></script>
+<!-- Cookies for storing DOM states, visibility etc. -->
+<script src="/js/jquery.cookie.js"></script>
+<!-- Miscellaneous JS functions -->
+<script src="/js/global.js"></script>
+<!-- AJAX forms -->
+<script src="/js/jquery.form.js"></script>
+<!-- JavaScript for this page -->
+<script src="/js/view.js"></script>
+  
+<footer class="footer"></footer>
+
+<!-- Modal for asset details -->
+<div class="modal fade" id="assetModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="myModalLabel">Asset Details</h3>
+		
+		<!-- next and prev buttons -->
+		<div class="pull-right">
+			<div class="btn-group sourceBtnGroup">
+				<a href="#" class="btn btn-primary prevRecord">Prev</a>
+				<a href="#" class="btn btn-primary nextRecord">Next</a>
+			</div>
+		</div>
+		
+      </div>
+	  
+      <div class="modal-body assetModalBody">
+	  <div class="row">
+      <div class="left col-md-5 text-center">
+	  	<div class="assetPreview"></div>
+		<div class="assetZoomHint" style="display:none;">Hover to Zoom</div><br>
+		
+		<div class="btn-group">
+		<a class="btn btn-primary assetPageLink" href="#" target="_blank" title="Asset Page"><i class="glyphicon glyphicon-file"></i></a>
+		<a class="btn btn-default assetUpdate isadmin" style="display:none;" href="" title="Edit Asset"><i class="glyphicon glyphicon-pencil"></i></a>
+		<a class="btn btn-danger assetDelete isadmin" style="display:none;" href="#" title="Delete Asset"><i class="glyphicon glyphicon-trash"></i></a>
+		<a class="btn btn-success assetDownloadLink" href="#" target="_blank" title="Download Asset"><i class="glyphicon glyphicon-download-alt"></i></a>
+		</div>
+
+	  </div>
+	  
+	  <div class="left col-md-7">
+	  	<div class="assetDetails">
+	
+		<table width="100%" class="assetDetailsTable table" border="0">
+		
+		  <tr>
+		    <th scope="row"><div align="left">Asset ID</div></th>
+		    <td><div align="left" data-field="assetid"></div></td>
+		    </tr>
+			
+		  <tr>
+			<th width="100" scope="row"><div align="left">Filename</div></th>
+			<td><div align="left" data-field="filename"></div></td>
+		  </tr>
+
+		  <tr>
+		    <th scope="row"><div align="left">Description</div></th>
+		    <td><div align="left" data-field="description"></div></td>
+		    </tr>
+			
+			<tr>
+		    <th scope="row"><div align="left">Created</div></th>
+		    <td><div align="left" data-field="datecreated"></div></td>
+		  </tr>
+		  
+		  <tr>
+		    <th scope="row"><div align="left">Modified</div></th>
+		    <td><div align="left" data-field="datemodified"></div></td>
+		   </tr>
+	 
+		   <tr>
+		    <th scope="row"><div align="left">File Size</div></th>
+		    <td><div align="left" data-field="filesize"></div></td>
+		    </tr>
+
+		   <tr>
+		     <th scope="row"><div align="left">Mime Type</div></th>
+		     <td><div align="left" data-field="mimetype"></div></td>
+		     </tr>
+		  
+		   <tr class="tr-dimensions">
+             <th scope="row"><div align="left">Dimensions</div></th>
+		     <td><div align="left"><span data-field="fullwidth"></span> (w) x <span data-field="fullheight"></span> (h)</div></td>
+		     </tr>
+		
+					
+			 <tr>
+		    <th scope="row"><div align="left">Uploader</div></th>
+		    <td><div align="left" data-field="uploader"></div></td>
+		    </tr>
+		  
+		  <tr>
+		    <th scope="row"><div align="left">Page Views</div></th>
+		    <td><div align="left" data-field="views"></div></td>
+		  </tr>
+		  
+		  <tr>
+		    <th scope="row"><div align="left">Downloads</div></th>
+		    <td><div align="left" data-field="downloads"></div></td>
+		  </tr>
+			
+		 <tr>
+		    <th colspan="2" scope="row"><div align="left">RAW Metadata</div></th>
+		    </tr>
+		  <tr>
+		    <td colspan="2" scope="row"><div align="left" data-field="metadata"></div></td>
+		  </tr>
+		</table>
+		
+	  	</div>
+	  </div>
+	  </div>
+	  
+      </div>
+	  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
