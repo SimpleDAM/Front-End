@@ -91,7 +91,6 @@ function init(userdata){
 		dir = $.cookie('sortdir_assets');
 	}
 	
-	
 	// Pagination
 	if ($.cookie('perpage_assets')){
 		perpage = $.cookie('perpage_assets');
