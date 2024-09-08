@@ -410,7 +410,7 @@ function updateAssetDetails(assetid){
 	
 	// Now update the text fields and other controls
 	
-	// Links
+	// Modal pop-up links
 	$("#assetModal .assetDownloadLink").attr("href","/api/asset/download/?sessiontoken="+sessiontoken+"&id="+assetid);
 	$("#assetModal .assetPageLink").attr("href","/asset/?id="+assetid);
 	$("#assetModal .assetUpdate").attr("href","/admin/edit/?id="+assetid);
