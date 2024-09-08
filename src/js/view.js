@@ -412,10 +412,10 @@ function updateAssetDetails(assetid){
 	// Now update the text fields and other controls
 	
 	// Links
-	$(".assetDownloadLink").attr("href","/api/asset/download/?sessiontoken="+sessiontoken+"&id="+assetid);
-	$(".assetPageLink").attr("href","/asset/?id="+assetid);	
-	$(".assetUpdate").attr("href","/admin/edit/?id="+assetid);
-	$(".assetDelete").attr("rel",assetid);
+	$("#assetModal .assetDownloadLink").attr("href","/api/asset/download/?sessiontoken="+sessiontoken+"&id="+assetid);
+	$("#assetModal .assetPageLink").attr("href","/asset/?id="+assetid);
+	$("#assetModal .assetUpdate").attr("href","/admin/edit/?id="+assetid);
+	$("#assetModal .assetDelete").attr("rel",assetid);
 	
 	// We need to pass through the mime type for when we attempt to embed images, audio, video etc.
 	$(".assetPreview").attr("data-assetid",assetid);
