@@ -395,8 +395,14 @@ function updateAssetDetails(assetid){
 			$(".assetPreview").append('<video width="350" height="262" id="video-player" controls="controls" src="'+embedurl+'" type="'+mimetype+'">');
 		}
 	} else if (type == "image" && extension !== null){
-		$(".assetZoomHint").show();
-		$(".assetPreview").html('<img src="'+previewurl+'" />');
+		if (extension != "ai" && extension != "pdf" && extension != "psd"){
+			$(".assetZoomHint").show();
+			$(".assetPreview").html('<a class="asset-embed" title="View full-screen" data-toggle="modal" data-target="#fullscreenModal" href="#"><img src="'+previewurl+'" /></a>');
+			$(".assetEmbed").html('<a data-dismiss="modal" title="Click to close" href="#"><img src="'+embedurl+'" /></a>');
+		} else {
+			$(".assetPreview").html('<img src="'+previewurl+'" />');
+		}
+		
 		$(".assetPreview img").css("max-width",metadata.fullwidth+"px");
 		$(".assetPreview img").css("max-height",metadata.fullheight+"px");
 		$(".assetPreview img").show();
@@ -410,7 +416,7 @@ function updateAssetDetails(assetid){
 	
 	// Now update the text fields and other controls
 	
-	// Modal pop-up links
+	// Links
 	$("#assetModal .assetDownloadLink").attr("href","/api/asset/download/?sessiontoken="+sessiontoken+"&id="+assetid);
 	$("#assetModal .assetPageLink").attr("href","/asset/?id="+assetid);
 	$("#assetModal .assetUpdate").attr("href","/admin/edit/?id="+assetid);

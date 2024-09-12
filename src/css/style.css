@@ -309,16 +309,16 @@ table {
 	background-color:#EEEEEE;
 	text-align:center;
 	vertical-align:middle;
-	xmargin-right:10px;
 	overflow:hidden;
-	xxbackground-image:url(/images/preview-loading.gif);
-	xxbackground-repeat:no-repeat;
-	xxbackground-position:center 50px;
 }
 
 .assetPreview img {
 	max-height:350px;
 	max-width:350px;
+}
+
+.asset-embed {
+	cursor: zoom-in;
 }
 
 .assetZoomHint {
@@ -612,4 +612,35 @@ pre, #update-metadata {
 
 #request_table td, #response_table td {
 	padding:5px;
+}
+
+.modal-fullscreen {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	top: 0;
+	left: 0;
+	padding: 0!important;
+}
+
+.modal-fullscreen .modal-body {
+	padding: 0!important;
+}
+.modal-fullscreen .modal-dialog {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.modal-fullscreen .modal-content {
+	height: auto;
+	min-height: 100%;
+	border: 0 none;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+.modal-fullscreen .assetEmbed a {
+	cursor: zoom-out;
 }

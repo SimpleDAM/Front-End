@@ -20,7 +20,7 @@ var httpscookie = (window.location.protocol == "https:");
 var samesite = (window.location.protocol == "https:") ? 'None' : 'Lax';
 
 // Other globals
-var previewtypes = ["jpg","png","gif","bmp","xbm","webp","wbmp","psd","pdf","mp4"];
+var previewtypes = ["jpg","png","gif","bmp","xbm","webp","wbmp","psd","pdf","mp4","ai"];
 var embedtypes = ["jpg","png","gif","bmp","xbm","webp","wbmp"];
 
 // Show feedback init

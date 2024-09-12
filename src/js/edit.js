@@ -311,8 +311,16 @@ function getAsset(){
 			$(".assetPreview").html('<img src="'+previewurl+'" />');
 						
 			if (type == "image" && extension !== null){
-				$(".assetZoomHint").show();
+				if (extension != "ai" && extension != "pdf" && extension != "psd"){
+					$(".assetZoomHint").show();
+					$(".assetPreview").html('<a class="asset-embed" title="View full-screen" data-toggle="modal" data-target="#fullscreenModal" href="#"><img src="'+previewurl+'" /></a>');
+					$(".assetEmbed").html('<a data-dismiss="modal" title="Click to close" href="#"><img src="'+embedurl+'" /></a>');
+				} else {
+					$(".assetPreview").html('<img src="'+previewurl+'" />');
+				}
 				$(".tr-dimensions").show();
+			} else {
+				$(".assetPreview").html('<img src="'+previewurl+'" />')
 			}
 			if (type == "audio"){
 				$(".assetPreview").html('<audio width="350" height="262" id="audio-player" controls="controls" src="'+embedurl+'" type="'+mimetype+'">');
