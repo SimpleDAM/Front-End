@@ -1,7 +1,7 @@
 /*
 This software is released under the BSD-3-Clause License
 
-Copyright 2022 Daydream Interactive Limited
+Copyright 2025 Daydream Interactive Limited
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
@@ -36,7 +36,7 @@ $(document).ready(function(){
 function init(userdata) {
 
 	$(".logged-in").show();
-	$(".main-container").show();
+	$(".main-container").fadeIn();
 	$(".isadmin").show();
 	$(".sessiontoken").val(sessiontoken);
 	$(".asset-container").show();
@@ -50,6 +50,7 @@ function init(userdata) {
 	
 		
 	$(".btn-add-submit").on("mousedown",function () {
+		/*
 		if ( $('#add-file').get(0).files.length > 0){
 			$("#assetAddForm").attr("action","/api/asset/upload")
 		} else if ( $('#add-url').val() ) {
@@ -57,6 +58,8 @@ function init(userdata) {
 		} else {
 			$("#assetAddForm").attr("action","/api/asset/add");
 		}
+		*/
+		$("#assetAddForm").attr("action","/api/asset/add");
 	});
 	
 	// Check if input URL is valid in add asset form

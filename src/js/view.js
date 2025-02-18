@@ -1,7 +1,7 @@
 /*
 This software is released under the BSD-3-Clause License
 
-Copyright 2024 Daydream Interactive Limited
+Copyright 2025 Daydream Interactive Limited
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
@@ -21,10 +21,16 @@ var numrecords = 0;
 var page = getParameterByName("page",1);
 var maxpages = 0;
 var maxpagelinks = 11;
+/*
 var sortpair = getParameterByName("sort","assetid desc");
 var sortarray = sortpair.split(" ");
 var sortby = sortarray[0];
 var dir = sortarray[1];
+*/
+var sort = getParameterByName("sort","assetid");
+var dir = getParameterByName("dir","desc");
+var sortpair = sort + " " + dir;
+
 var q = getParameterByName("q","");
 var sessiontoken = localStorage.sessiontoken;
 var asset_cache = new Array();
@@ -49,7 +55,7 @@ $(document).ready(function(){
 
 function init(userdata){
 	// Show main wrapper
-	$(".logged-in, .main-container").show();
+	$(".logged-in, .main-container").fadeIn();
 	
 	// Show admin sections
 	if (userdata.data.userroleid == 2){
@@ -78,9 +84,9 @@ function init(userdata){
 	});
 	
 	$(document).on("click",".sort",function(){
-		sortby = $(this).attr("data-sortby");
+		sort = $(this).attr("data-sort");
 		dir = $(this).attr("data-dir");
-		$.cookie('sortby_assets', sortby, { expires: 365, path: '/;SameSite='+samesite, domain: COOKIEDOMAIN, secure: httpscookie });
+		$.cookie('sortby_assets', sort, { expires: 365, path: '/;SameSite='+samesite, domain: COOKIEDOMAIN, secure: httpscookie });
 		$.cookie('sortdir_assets', dir, { expires: 365, path: '/;SameSite='+samesite, domain: COOKIEDOMAIN, secure: httpscookie });
 		getAssets(userdata);
 		return false;
@@ -90,6 +96,7 @@ function init(userdata){
 		sortby = $.cookie('sortby_assets');
 		dir = $.cookie('sortdir_assets');
 	}
+	
 	
 	// Pagination
 	if ($.cookie('perpage_assets')){
@@ -122,7 +129,7 @@ function init(userdata){
 		$.removeCookie('q', { path: '/;SameSite='+samesite, domain: COOKIEDOMAIN, secure: httpscookie });
 		$.removeCookie('sortby_assets', { path: '/;SameSite='+samesite, domain: COOKIEDOMAIN, secure: httpscookie });
 		$.removeCookie('sortdir_assets', { path: '/;SameSite='+samesite, domain: COOKIEDOMAIN, secure: httpscookie });
-		sortby = "assetid";
+		sort = "assetid";
 		dir = "desc";
 		// Remove queries from address bar/URL
 		history.pushState('', document.title, window.location.pathname);
@@ -418,7 +425,7 @@ function updateAssetDetails(assetid){
 	
 	// Links
 	$("#assetModal .assetDownloadLink").attr("href","/api/asset/download/?sessiontoken="+sessiontoken+"&id="+assetid);
-	$("#assetModal .assetPageLink").attr("href","/asset/?id="+assetid);
+	$("#assetModal .assetPageLink").attr("href","/asset/?id="+assetid);	
 	$("#assetModal .assetUpdate").attr("href","/admin/edit/?id="+assetid);
 	$("#assetModal .assetDelete").attr("rel",assetid);
 	
@@ -489,7 +496,7 @@ function getAssets(userdata){
 
 	var start = (page > 1) ? (page - 1) * perpage : 0;
 	
-	$.getJSON("/api/asset/list/",{sessiontoken:sessiontoken,start:start, limit:perpage, sort:sortby, dir:dir, q:q})
+	$.getJSON("/api/asset/list/",{sessiontoken:sessiontoken,start:start, limit:perpage, sort:sort, dir:dir, q:q})
 	.done(function(json) {
 		if (json.error){
 			showError(json.description,true);
@@ -584,7 +591,7 @@ function getAssets(userdata){
 			
 			// Add active class to current sorting link
 			$(".sort").parent().removeClass("active");
-			$(".sort[data-sortby='"+sortby+"'][data-dir='"+dir+"']").parent().addClass("active");
+			$(".sort[data-sort='"+sort+"'][data-dir='"+dir+"']").parent().addClass("active");
 
 		}
 	})

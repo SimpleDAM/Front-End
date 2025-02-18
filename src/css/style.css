@@ -1,7 +1,7 @@
 /*
 This software is released under the BSD-3-Clause License
 
-Copyright 2024 Daydream Interactive Limited
+Copyright 2025 Daydream Interactive Limited
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
@@ -372,12 +372,18 @@ pre, #update-metadata {
 	font-size:0.8em;
 }
 
+table {
+	max-width: none;
+	table-layout: fixed;
+	word-wrap: break-word;
+}
+
 .auditTable {
 	font-size:0.9em;
 }
 
 .auditTable tr td {
-	padding:5px;
+	padding:3px;
 }
 
 .accountTable tr td {
@@ -641,6 +647,27 @@ pre, #update-metadata {
 	box-shadow: none;
 }
 
+.modal-fullscreen .assetEmbed {
+	text-align:center;
+}
+
 .modal-fullscreen .assetEmbed a {
 	cursor: zoom-out;
+}
+
+.modal-fullscreen .assetEmbed a img {
+	max-width:100%;
+}
+
+.project-list-item {
+	border: 1px solid #DDDD;
+	text-align: left;
+	padding: 15px;
+}
+.project-list-item a {
+	font-size:1.4em;
+}
+.project-caption {
+	line-height: 2em;
+	margin-bottom: 10px;
 }

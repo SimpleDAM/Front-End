@@ -1,7 +1,7 @@
 <!--
 This software is released under the BSD-3-Clause License
 
-Copyright 2022 Daydream Interactive Limited
+Copyright 2025 Daydream Interactive Limited
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
@@ -110,7 +110,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 </div>
 <!-- end navbar and notices -->
 
-<div class="container main-container" style="display:;">
+<div class="container main-container" style="display:none;">
 
 <div class="row">
 	<div class="col-lg-12">
@@ -237,7 +237,7 @@ $(document).ready(function(){
 
 function init(userdata){
 	
-	$(".logged-in, .main-container").show();
+	$(".logged-in, .main-container").fadeIn();
 	
 	// Append logout link with sessiontoken
 	$(".logout").attr("href","/api/user/logout/?sessiontoken="+userdata.data.sessiontoken);

@@ -1,7 +1,7 @@
 /*
 This software is released under the BSD-3-Clause License
 
-Copyright 2024 Daydream Interactive Limited
+Copyright 2025 Daydream Interactive Limited
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
@@ -37,7 +37,7 @@ $(document).ready(function(){
 function init(userdata) {
 
 	$(".logged-in").show();
-	$(".main-container").show();
+	$(".main-container").fadeIn();
 	$(".isadmin").show();
 	
 	// Append logout link with sessiontoken

@@ -1,7 +1,7 @@
 /*
 This software is released under the BSD-3-Clause License
 
-Copyright 2024 Daydream Interactive Limited
+Copyright 2025 Daydream Interactive Limited
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
@@ -646,7 +646,7 @@ function clearCookies(){
 // JavaScript build pagination function
 function buildPagination(){
 	
-	var pagestring = location.protocol + '//' + location.host + location.pathname + "?num="+perpage+"&sort="+sortpair+"&page=";
+	var pagestring = location.protocol + '//' + location.host + location.pathname + "?num="+perpage+"&sort="+sort+"&dir="+dir+"&page=";
 	$(".pagination").html("");
 	$(".page-link").parent().removeClass("active");
 	var prevpage = (page > 1) ? parseInt(page)-1 : 1;
