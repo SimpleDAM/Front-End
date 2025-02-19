@@ -20,8 +20,8 @@ var httpscookie = (window.location.protocol == "https:");
 var samesite = (window.location.protocol == "https:") ? 'None' : 'Lax';
 
 // Other globals
-var previewtypes = ["jpg","png","gif","bmp","xbm","webp","wbmp","psd","pdf","mp4","ai"];
-var embedtypes = ["jpg","png","gif","bmp","xbm","webp","wbmp"];
+var previewtypes = ["jpg","png","gif","bmp","xbm","webp","wbmp","psd","pdf","ai"];
+var embedtypes = ["jpg","png","gif","bmp","xbm","webp","wbmp","mp4"];
 
 // Show feedback init
 var showingSuccess = false;
